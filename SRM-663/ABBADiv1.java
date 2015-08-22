@@ -8,6 +8,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 
  * Problem Statement: http://community.topcoder.com/stat?c=problem_statement&pm=13922&rd=16512
  * 
+ * Approach:
+ * I went with a simple BFS strategy where only valid children are exploited. The branching factor of the tree is 2 since there are two possible moves (not necessarily valid) from any configuration/value. The worst case performance will therefore be O(2^n) where n is the depth and is defined to be the length difference between the source and the target.
+ * 
  * @author Jean-Sebastien Dery
  *
  */
