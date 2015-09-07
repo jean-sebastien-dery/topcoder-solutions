@@ -8,9 +8,20 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 
  * Problem Statement: http://community.topcoder.com/stat?c=problem_statement&pm=13922&rd=16512
  * 
- * Approach:
- * I went with a simple BFS strategy where only valid children are exploited. The branching factor of the tree is 2 since there are two possible moves (not necessarily valid) from any configuration/value. The worst case performance will therefore be O(2^n) where n is the depth and is defined to be the length difference between the source and the target.
+ * Approach and analysis:
+ * I went with a simple BFS strategy where only valid children are exploited (pruning invalid branches). The branching
+ * factor of the tree is 2 since there are two possible moves (not necessarily valid) from any configuration/value.
+ * The worst case performance will therefore be O(2^n) where n is the depth and is defined to be the length difference
+ * between the source and the target. This worst case performance is no going to happen though -- since invalid children
+ * are filtered out before being processed. Generating a children is O(k) -- where k is the length of the target --
+ * since the worst case is when the target will be generated. Verifying if the current value is in target is also O(k).
+ * Which means that the algorithm is bounded by O(2^n), but because of pruning the path from the source to the target
+ * is almost direct. Hence, the runtime of this algorithm is almost O(k).
  * 
+ * Side notes:
+ * A different approach to this problem would have been to go backward from the target to the source and do
+ * backtracking.
+ *
  * @author Jean-Sebastien Dery
  *
  */
@@ -51,6 +62,12 @@ public class ABBADiv1 {
         private String value;
         private String target;
 
+        /**
+         * Constructor.
+         * 
+         * @param value The current value of the move.
+         * @param target The target value of the game.
+         */
         Move(String value, String target) {
             this.value = value;
             this.target = target;
